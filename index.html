@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Churn Intelligence System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- =========================================
+         SIDEBAR NAVIGATION
+    ========================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">CC</div>
+
+            <div>
+                <h2>ChurnGuard</h2>
+                <p>Analytics Platform</p>
+            </div>
+        </div>
+
+        <nav class="navigation">
+
+            <button class="nav-item active"
+                    onclick="showSection('dashboard', this)">
+                🏠 Dashboard
+            </button>
+
+            <button class="nav-item"
+                    onclick="showSection('analytics', this)">
+                📊 Data Analysis
+            </button>
+
+            <button class="nav-item"
+                    onclick="showSection('segmentation', this)">
+                👥 Segmentation
+            </button>
+
+            <button class="nav-item"
+                    onclick="showSection('prediction', this)">
+                🤖 Churn Prediction
+            </button>
+
+            <!-- NEW DATASET PREDICTION BUTTON -->
+
+            <button class="nav-item"
+                    onclick="showSection('dataset-prediction', this)">
+                📁 Dataset Prediction
+            </button>
+
+            <button class="nav-item"
+                    onclick="showSection('performance', this)">
+                📈 Model Performance
+            </button>
+
+            <button class="nav-item"
+                    onclick="showSection('recommendations', this)">
+                💡 Recommendations
+            </button>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <p>Customer Churn</p>
+            <span>Data Mining + Machine Learning</span>
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main-content">
+
+        <header class="top-header">
+
+            <div>
+                <h1 id="page-title">Customer Churn Dashboard</h1>
+
+                <p id="page-subtitle">
+                    Analyze customer behavior and identify churn risk.
+                </p>
+            </div>
+
+            <div class="status-badge">
+                ● ML System Ready
+            </div>
+
+        </header>
+
+
+        <!-- =====================================
+             1. DASHBOARD
+        ====================================== -->
+
+        <section id="dashboard"
+                 class="page-section active-section">
+
+            <div class="hero-card">
+
+                <div>
+                    <span class="hero-label">
+                        AI POWERED CUSTOMER ANALYTICS
+                    </span>
+
+                    <h2>
+                        Predict customer churn
+                        before it happens.
+                    </h2>
+
+                    <p>
+                        Analyze customer behavior, discover patterns,
+                        segment customers, and predict churn using
+                        machine learning.
+                    </p>
+
+                    <button type="button"
+                            class="primary-button"
+                            onclick="activatePrediction()">
+                        Start Prediction →
+                    </button>
+                </div>
+
+                <div class="hero-icon">🤖</div>
+
+            </div>
+
+
+            <!-- DASHBOARD STATISTICS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">👤</div>
+
+                    <div>
+                        <p>Total Customers</p>
+                        <h3 id="total-customers">Loading...</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">⚠️</div>
+
+                    <div>
+                        <p>Churned Customers</p>
+                        <h3 id="churned-customers">Loading...</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">📉</div>
+
+                    <div>
+                        <p>Churn Rate</p>
+                        <h3 id="churn-rate">Loading...</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">💳</div>
+
+                    <div>
+                        <p>Average Monthly Charges</p>
+                        <h3 id="avg-charges">Loading...</h3>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECT OVERVIEW -->
+
+            <div class="content-card">
+
+                <div class="section-heading">
+                    <h3>Project Overview</h3>
+                    <p>Customer churn analysis and prediction system</p>
+                </div>
+
+                <div class="feature-grid">
+
+                    <div class="feature-card">
+                        <span>📊</span>
+
+                        <h4>Data Analysis</h4>
+
+                        <p>
+                            Explore customer behavior and churn patterns
+                            through data visualizations.
+                        </p>
+                    </div>
+
+
+                    <div class="feature-card">
+                        <span>👥</span>
+
+                        <h4>Customer Segmentation</h4>
+
+                        <p>
+                            Group customers using K-Means clustering.
+                        </p>
+                    </div>
+
+
+                    <div class="feature-card">
+                        <span>🤖</span>
+
+                        <h4>Churn Prediction</h4>
+
+                        <p>
+                            Predict whether an individual customer
+                            is likely to churn.
+                        </p>
+                    </div>
+
+
+                    <div class="feature-card">
+                        <span>📁</span>
+
+                        <h4>Dataset Prediction</h4>
+
+                        <p>
+                            Generate predictions for customers in
+                            the complete CSV dataset.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             2. DATA ANALYSIS
+        ====================================== -->
+
+        <section id="analytics" class="page-section">
+
+            <div class="page-header">
+
+                <span class="section-tag">ANALYTICS</span>
+
+                <h2>Customer Data Analysis</h2>
+
+                <p>
+                    Explore customer behavior and churn patterns
+                    using data visualizations.
+                </p>
+
+            </div>
+
+
+            <div class="analytics-grid">
+
+                <div class="chart-card">
+
+                    <h3>Churn Distribution</h3>
+
+                    <img src="/static/churn_distribution.png"
+                         alt="Customer churn distribution"
+                         onerror="this.style.display='none'">
+
+                </div>
+
+
+                <div class="chart-card">
+
+                    <h3>Churn Percentage</h3>
+
+                    <img src="/static/churn_percentage.png"
+                         alt="Customer churn percentage"
+                         onerror="this.style.display='none'">
+
+                </div>
+
+
+                <div class="chart-card">
+
+                    <h3>Churn by Contract</h3>
+
+                    <img src="/static/churn_by_contract.png"
+                         alt="Customer churn by contract"
+                         onerror="this.style.display='none'">
+
+                </div>
+
+
+                <div class="chart-card">
+
+                    <h3>Churn by Internet Service</h3>
+
+                    <img src="/static/churn_by_internet_service.png"
+                         alt="Churn by internet service"
+                         onerror="this.style.display='none'">
+
+                </div>
+
+
+                <div class="chart-card">
+
+                    <h3>Tenure vs Churn</h3>
+
+                    <img src="/static/churn_by_tenure.png"
+                         alt="Customer tenure by churn"
+                         onerror="this.style.display='none'">
+
+                </div>
+
+
+                <div class="chart-card">
+
+                    <h3>Monthly Charges vs Churn</h3>
+
+                    <img src="/static/monthly_charges_vs_churn.png"
+                         alt="Monthly charges by churn"
+                         onerror="this.style.display='none'">
+
+                </div>
+
+
+                <div class="chart-card">
+
+                    <h3>Correlation Heatmap</h3>
+
+                    <img src="/static/correlation_heatmap.png"
+                         alt="Numerical feature correlation heatmap"
+                         onerror="this.style.display='none'">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             3. CUSTOMER SEGMENTATION
+        ====================================== -->
+
+        <section id="segmentation" class="page-section">
+
+            <div class="page-header">
+
+                <span class="section-tag">DATA MINING</span>
+
+                <h2>Customer Segmentation</h2>
+
+                <p>
+                    Group customers according to tenure,
+                    monthly charges, and total charges.
+                </p>
+
+            </div>
+
+
+            <div class="segmentation-container">
+
+                <div class="info-card">
+
+                    <div class="large-icon">👥</div>
+
+                    <h3>K-Means Clustering</h3>
+
+                    <p>
+                        This module uses the saved K-Means model
+                        to assign a customer to a cluster.
+                    </p>
+
+                </div>
+
+
+                <div class="segment-form">
+
+                    <h3>Find Customer Segment</h3>
+
+                    <div class="input-grid">
+
+                        <div class="input-group">
+
+                            <label for="segment-tenure">
+                                Tenure (Months)
+                            </label>
+
+                            <input type="number"
+                                   id="segment-tenure"
+                                   min="0"
+                                   max="72"
+                                   placeholder="Example: 24">
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label for="segment-monthly">
+                                Monthly Charges
+                            </label>
+
+                            <input type="number"
+                                   id="segment-monthly"
+                                   min="0"
+                                   step="0.01"
+                                   placeholder="Example: 75.50">
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label for="segment-total">
+                                Total Charges
+                            </label>
+
+                            <input type="number"
+                                   id="segment-total"
+                                   min="0"
+                                   step="0.01"
+                                   placeholder="Example: 1812">
+
+                        </div>
+
+                    </div>
+
+
+                    <button type="button"
+                            class="primary-button"
+                            onclick="findSegment()">
+                        Find Customer Segment
+                    </button>
+
+
+                    <div id="segment-result"
+                         class="result-box hidden">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <h3>Customer Segmentation Visualization</h3>
+
+                <img src="/static/customer_segmentation_kmeans.png"
+                     alt="Customer segments created using K-Means"
+                     onerror="this.style.display='none'">
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <h3>Churn by Customer Segment</h3>
+
+                <img src="/static/churn_by_customer_segment.png"
+                     alt="Churn percentage by customer segment"
+                     onerror="this.style.display='none'">
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <h3>Elbow Method</h3>
+
+                <img src="/static/kmeans_elbow.png"
+                     alt="K-Means elbow method"
+                     onerror="this.style.display='none'">
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             4. INDIVIDUAL CUSTOMER PREDICTION
+        ====================================== -->
+
+        <section id="prediction" class="page-section">
+
+            <div class="page-header">
+
+                <span class="section-tag">MACHINE LEARNING</span>
+
+                <h2>Customer Churn Prediction</h2>
+
+                <p>
+                    Enter individual customer information to
+                    predict churn probability and risk.
+                </p>
+
+            </div>
+
+
+            <div class="prediction-layout">
+
+
+                <!-- CUSTOMER FORM -->
+
+                <div class="form-card">
+
+                    <h3>Customer Information</h3>
+
+                    <form id="prediction-form">
+
+                        <div class="input-grid">
+
+
+                            <div class="input-group">
+
+                                <label for="gender">Gender</label>
+
+                                <select id="gender">
+
+                                    <option value="Female">Female</option>
+
+                                    <option value="Male">Male</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="SeniorCitizen">
+                                    Senior Citizen
+                                </label>
+
+                                <select id="SeniorCitizen">
+
+                                    <option value="0">No</option>
+
+                                    <option value="1">Yes</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="Partner">Partner</label>
+
+                                <select id="Partner">
+
+                                    <option value="Yes">Yes</option>
+
+                                    <option value="No">No</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="Dependents">Dependents</label>
+
+                                <select id="Dependents">
+
+                                    <option value="No">No</option>
+
+                                    <option value="Yes">Yes</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="tenure">Tenure (Months)</label>
+
+                                <input type="number"
+                                       id="tenure"
+                                       min="0"
+                                       max="72"
+                                       placeholder="Example: 24"
+                                       required>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="PhoneService">
+                                    Phone Service
+                                </label>
+
+                                <select id="PhoneService">
+
+                                    <option value="Yes">Yes</option>
+
+                                    <option value="No">No</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="MultipleLines">
+                                    Multiple Lines
+                                </label>
+
+                                <select id="MultipleLines">
+
+                                    <option value="No">No</option>
+
+                                    <option value="Yes">Yes</option>
+
+                                    <option value="No phone service">
+                                        No phone service
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="InternetService">
+                                    Internet Service
+                                </label>
+
+                                <select id="InternetService">
+
+                                    <option value="DSL">DSL</option>
+
+                                    <option value="Fiber optic">
+                                        Fiber optic
+                                    </option>
+
+                                    <option value="No">No</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="OnlineSecurity">
+                                    Online Security
+                                </label>
+
+                                <select id="OnlineSecurity">
+
+                                    <option value="No">No</option>
+
+                                    <option value="Yes">Yes</option>
+
+                                    <option value="No internet service">
+                                        No internet service
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="OnlineBackup">
+                                    Online Backup
+                                </label>
+
+                                <select id="OnlineBackup">
+
+                                    <option value="No">No</option>
+
+                                    <option value="Yes">Yes</option>
+
+                                    <option value="No internet service">
+                                        No internet service
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="DeviceProtection">
+                                    Device Protection
+                                </label>
+
+                                <select id="DeviceProtection">
+
+                                    <option value="No">No</option>
+
+                                    <option value="Yes">Yes</option>
+
+                                    <option value="No internet service">
+                                        No internet service
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="TechSupport">
+                                    Tech Support
+                                </label>
+
+                                <select id="TechSupport">
+
+                                    <option value="No">No</option>
+
+                                    <option value="Yes">Yes</option>
+
+                                    <option value="No internet service">
+                                        No internet service
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="StreamingTV">
+                                    Streaming TV
+                                </label>
+
+                                <select id="StreamingTV">
+
+                                    <option value="No">No</option>
+
+                                    <option value="Yes">Yes</option>
+
+                                    <option value="No internet service">
+                                        No internet service
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="StreamingMovies">
+                                    Streaming Movies
+                                </label>
+
+                                <select id="StreamingMovies">
+
+                                    <option value="No">No</option>
+
+                                    <option value="Yes">Yes</option>
+
+                                    <option value="No internet service">
+                                        No internet service
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="Contract">Contract</label>
+
+                                <select id="Contract">
+
+                                    <option value="Month-to-month">
+                                        Month-to-month
+                                    </option>
+
+                                    <option value="One year">
+                                        One year
+                                    </option>
+
+                                    <option value="Two year">
+                                        Two year
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="PaperlessBilling">
+                                    Paperless Billing
+                                </label>
+
+                                <select id="PaperlessBilling">
+
+                                    <option value="Yes">Yes</option>
+
+                                    <option value="No">No</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="PaymentMethod">
+                                    Payment Method
+                                </label>
+
+                                <select id="PaymentMethod">
+
+                                    <option value="Electronic check">
+                                        Electronic check
+                                    </option>
+
+                                    <option value="Mailed check">
+                                        Mailed check
+                                    </option>
+
+                                    <option value="Bank transfer (automatic)">
+                                        Bank transfer (automatic)
+                                    </option>
+
+                                    <option value="Credit card (automatic)">
+                                        Credit card (automatic)
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="MonthlyCharges">
+                                    Monthly Charges
+                                </label>
+
+                                <input type="number"
+                                       id="MonthlyCharges"
+                                       min="0"
+                                       step="0.01"
+                                       placeholder="Example: 75.50"
+                                       required>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label for="TotalCharges">
+                                    Total Charges
+                                </label>
+
+                                <input type="number"
+                                       id="TotalCharges"
+                                       min="0"
+                                       step="0.01"
+                                       placeholder="Example: 1812.00"
+                                       required>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <button type="submit"
+                                class="predict-button">
+
+                            🔮 Predict Customer Churn
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- PREDICTION RESULT -->
+
+                <div class="prediction-result-card">
+
+                    <div class="result-header">
+
+                        <span>Prediction Result</span>
+
+                        <span class="result-status">ML</span>
+
+                    </div>
+
+
+                    <div id="prediction-placeholder">
+
+                        <div class="prediction-icon">🤖</div>
+
+                        <h3>Ready to Predict</h3>
+
+                        <p>
+                            Enter customer details and click
+                            the prediction button.
+                        </p>
+
+                    </div>
+
+
+                    <div id="prediction-result" class="hidden">
+
+                        <div id="prediction-badge"
+                             class="prediction-badge">
+                        </div>
+
+
+                        <div class="probability">
+
+                            <span>Churn Probability</span>
+
+                            <strong id="probability-value">0%</strong>
+
+                        </div>
+
+
+                        <div class="risk-section">
+
+                            <span>Risk Level</span>
+
+                            <strong id="risk-value">-</strong>
+
+                        </div>
+
+
+                        <div class="recommendation-box">
+
+                            <h4>💡 Recommendation</h4>
+
+                            <p id="recommendation-value"></p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             5. DATASET-BASED PREDICTION
+        ====================================== -->
+
+        <section id="dataset-prediction" class="page-section">
+
+            <div class="page-header">
+
+                <span class="section-tag">
+                    BULK MACHINE LEARNING
+                </span>
+
+                <h2>Dataset-Based Churn Prediction</h2>
+
+                <p>
+                    Run the trained machine learning model on customers
+                    from your telco_customer_churn.csv dataset.
+                </p>
+
+            </div>
+
+
+            <!-- DATASET PREDICTION CONTROLS -->
+
+            <div class="content-card">
+
+                <h3>Predict Churn for the Complete Dataset</h3>
+
+                <p style="margin: 15px 0;
+                          color: #697386;
+                          line-height: 1.7;">
+
+                    The application loads the customer dataset,
+                    applies the saved preprocessing pipeline, and
+                    generates a prediction for each usable customer.
+
+                    The output includes predicted churn, churn
+                    probability, risk level, and recommendations.
+
+                </p>
+
+
+                <button type="button"
+                        class="predict-button"
+                        id="run-dataset-button"
+                        onclick="runDatasetPrediction()">
+
+                    🚀 Run Prediction on Entire Dataset
+
+                </button>
+
+
+                <p id="dataset-status"
+                   role="status"
+                   aria-live="polite"
+                   style="margin-top: 15px;">
+
+                </p>
+
+            </div>
+
+
+            <!-- DATASET RESULTS -->
+
+            <div id="dataset-results" class="hidden">
+
+
+                <div class="page-header"
+                     style="margin-top: 30px;">
+
+                    <h2>Dataset Prediction Results</h2>
+
+                    <p>
+                        Summary of customer predictions generated
+                        by the saved machine learning model.
+                    </p>
+
+                </div>
+
+
+                <!-- PREDICTION SUMMARY -->
+
+                <div class="metrics-grid">
+
+
+                    <div class="metric-card">
+
+                        <span>Customers Processed</span>
+
+                        <strong id="rows-processed">0</strong>
+
+                    </div>
+
+
+                    <div class="metric-card">
+
+                        <span>Predicted Churn</span>
+
+                        <strong id="predicted-churn">0</strong>
+
+                    </div>
+
+
+                    <div class="metric-card">
+
+                        <span>Predicted No Churn</span>
+
+                        <strong id="predicted-no-churn">0</strong>
+
+                    </div>
+
+
+                    <div class="metric-card">
+
+                        <span>High Risk</span>
+
+                        <strong id="high-risk-count">0</strong>
+
+                    </div>
+
+
+                    <div class="metric-card">
+
+                        <span>Medium Risk</span>
+
+                        <strong id="medium-risk-count">0</strong>
+
+                    </div>
+
+
+                    <div class="metric-card">
+
+                        <span>Low Risk</span>
+
+                        <strong id="low-risk-count">0</strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- TEST METRICS -->
+
+                <div class="content-card"
+                     style="margin-top: 20px;">
+
+                    <h3>Held-Out Test Set Performance</h3>
+
+                    <p style="margin: 12px 0;
+                              color: #697386;
+                              line-height: 1.6;">
+
+                        The following metrics evaluate predictions
+                        on the test split. They should not be confused
+                        with predictions generated for the entire dataset.
+
+                    </p>
+
+
+                    <div class="metrics-grid">
+
+
+                        <div class="metric-card">
+
+                            <span>Accuracy</span>
+
+                            <strong id="test-accuracy">-</strong>
+
+                        </div>
+
+
+                        <div class="metric-card">
+
+                            <span>Precision</span>
+
+                            <strong id="test-precision">-</strong>
+
+                        </div>
+
+
+                        <div class="metric-card">
+
+                            <span>Recall</span>
+
+                            <strong id="test-recall">-</strong>
+
+                        </div>
+
+
+                        <div class="metric-card">
+
+                            <span>F1 Score</span>
+
+                            <strong id="test-f1">-</strong>
+
+                        </div>
+
+
+                        <div class="metric-card">
+
+                            <span>ROC-AUC</span>
+
+                            <strong id="test-roc-auc">-</strong>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- DOWNLOAD RESULTS -->
+
+                <div class="content-card"
+                     style="margin-top: 20px;">
+
+                    <h3>Download Prediction Report</h3>
+
+                    <p style="margin: 12px 0;
+                              color: #697386;
+                              line-height: 1.7;">
+
+                        Download the results for the usable customers
+                        in your dataset. The CSV includes customer
+                        details, actual churn labels, predicted churn,
+                        churn probability, risk level, and recommendations.
+
+                    </p>
+
+
+                    <a id="dataset-download-link"
+                       href="/download-predictions"
+                       class="predict-button"
+                       style="display: inline-block;
+                              width: auto;
+                              text-decoration: none;">
+
+                        ⬇ Download Prediction Results CSV
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             6. MODEL PERFORMANCE
+        ====================================== -->
+
+        <section id="performance" class="page-section">
+
+            <div class="page-header">
+
+                <span class="section-tag">MODEL EVALUATION</span>
+
+                <h2>Model Performance</h2>
+
+                <p>
+                    Compare the machine learning models used
+                    for customer churn prediction.
+                </p>
+
+            </div>
+
+
+            <div class="best-model-card">
+
+                <div class="model-icon">🏆</div>
+
+                <div>
+
+                    <span>BEST PERFORMING MODEL</span>
+
+                    <h2 id="best-model-name">Loading...</h2>
+
+                    <p>Selected using F1 Score.</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="metrics-grid">
+
+
+                <div class="metric-card">
+
+                    <span>Accuracy</span>
+
+                    <strong id="model-accuracy">-</strong>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span>Precision</span>
+
+                    <strong id="model-precision">-</strong>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span>Recall</span>
+
+                    <strong id="model-recall">-</strong>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span>F1 Score</span>
+
+                    <strong id="model-f1">-</strong>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span>ROC-AUC</span>
+
+                    <strong id="model-roc">-</strong>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <h3>Model Performance Comparison</h3>
+
+                <img src="/static/model_performance_comparison.png"
+                     alt="Machine learning model comparison"
+                     onerror="this.style.display='none'">
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <h3>Best Model Confusion Matrix</h3>
+
+                <img src="/static/best_model_confusion_matrix.png"
+                     alt="Confusion matrix of the best model"
+                     onerror="this.style.display='none'">
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             7. BUSINESS RECOMMENDATIONS
+        ====================================== -->
+
+        <section id="recommendations" class="page-section">
+
+            <div class="page-header">
+
+                <span class="section-tag">BUSINESS INTELLIGENCE</span>
+
+                <h2>Business Recommendations</h2>
+
+                <p>
+                    Suggested retention strategies for customers
+                    at different predicted risk levels.
+                </p>
+
+            </div>
+
+
+            <div class="recommendation-grid">
+
+
+                <div class="recommendation-card high-risk">
+
+                    <div class="rec-icon">🔴</div>
+
+                    <h3>High Risk Customers</h3>
+
+                    <p>
+                        Customers with high predicted churn
+                        probability may need immediate retention attention.
+                    </p>
+
+                    <ul>
+
+                        <li>Offer personalized discounts</li>
+
+                        <li>Provide priority support</li>
+
+                        <li>Review contract options</li>
+
+                    </ul>
+
+                </div>
+
+
+                <div class="recommendation-card medium-risk">
+
+                    <div class="rec-icon">🟠</div>
+
+                    <h3>Medium Risk Customers</h3>
+
+                    <p>
+                        Monitor customers with moderate predicted
+                        churn risk and improve engagement.
+                    </p>
+
+                    <ul>
+
+                        <li>Send personalized offers</li>
+
+                        <li>Improve customer engagement</li>
+
+                        <li>Recommend suitable services</li>
+
+                    </ul>
+
+                </div>
+
+
+                <div class="recommendation-card low-risk">
+
+                    <div class="rec-icon">🟢</div>
+
+                    <h3>Low Risk Customers</h3>
+
+                    <p>
+                        Maintain good service quality and develop
+                        long-term customer relationships.
+                    </p>
+
+                    <ul>
+
+                        <li>Maintain service quality</li>
+
+                        <li>Reward loyal customers</li>
+
+                        <li>Encourage referrals</li>
+
+                    </ul>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

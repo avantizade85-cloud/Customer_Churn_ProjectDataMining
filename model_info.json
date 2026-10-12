@@ -1,0 +1,8 @@
+{
+    "Best Model": "KNN",
+    "Accuracy": 0.9017,
+    "Precision": 0.1538,
+    "Recall": 0.0333,
+    "F1 Score": 0.0548,
+    "ROC-AUC": 0.5745
+}
